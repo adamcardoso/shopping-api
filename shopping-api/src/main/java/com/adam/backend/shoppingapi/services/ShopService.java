@@ -1,6 +1,8 @@
 package com.adam.backend.shoppingapi.services;
 
+import com.adam.backend.shoppingapi.converter.DTOConverter;
 import com.adam.backend.shoppingapi.dtos.*;
+import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 import com.adam.backend.shoppingapi.models.Shop;
 import com.adam.backend.shoppingapi.repositories.ReportRepository;
 import com.adam.backend.shoppingapi.repositories.ShopRepository;
@@ -57,7 +59,7 @@ public class ShopService {
         return shop.map(ShopDTO::convert).orElse(null);
     }
 
-    public ShopDTO save(ShopDTO shopDTO) {
+    public ShopDTO save(ShopDTO shopDTO) throws UserNotFoundException {
         if (userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
             return null;
         }
@@ -98,7 +100,7 @@ public class ShopService {
         return reportRepository.getReportByDate(dataInicio, dataFim);
     }
 
-    private boolean validateProducts(List<ItemDTO> items) {
+    private boolean validateProducts(List<ItemDTO> items) throws UserNotFoundException {
         for (ItemDTO item : items) {
             ProductDTO productDTO = productService
                     .getProductByIdentifier(

@@ -1,5 +1,7 @@
-package com.adam.backend.shoppingapi.dtos;
+package com.adam.backend.shoppingapi.converter;
 
+import com.adam.backend.shoppingapi.dtos.ItemDTO;
+import com.adam.backend.shoppingapi.dtos.ShopDTO;
 import com.adam.backend.shoppingapi.models.Item;
 import com.adam.backend.shoppingapi.models.Shop;
 
