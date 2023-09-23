@@ -6,7 +6,10 @@ import com.adam.backend.shoppingapi.repositories.ReportRepository;
 import com.adam.backend.shoppingapi.repositories.ShopRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,6 +43,7 @@ public class ShopService {
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());
     }
+
     public List<ShopDTO> getByDate(ShopDTO shopDTO) {
         List<Shop> shops = shopRepository
                 .findAllByDateGreaterThan(shopDTO.getDate());
@@ -52,6 +56,7 @@ public class ShopService {
         Optional<Shop> shop = shopRepository.findById(ProductId);
         return shop.map(ShopDTO::convert).orElse(null);
     }
+
     public ShopDTO save(ShopDTO shopDTO) {
         if (userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
             return null;
@@ -64,7 +69,15 @@ public class ShopService {
                 .map(ItemDTO::getPrice)
                 .reduce((float) 0, Float::sum));
         Shop shop = Shop.convert(shopDTO);
-        shop.setDate(LocalDateTime.now());
+
+        // Criando uma nova instância de java.util.Date
+        Date date = new Date();
+
+        // Convertendo java.util.Date para java.time.LocalDateTime
+        Instant instant = date.toInstant();
+        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        shop.setDate(localDateTime);
         shop = shopRepository.save(shop);
         return DTOConverter.convert(shop);
     }
