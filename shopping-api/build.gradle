@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.4'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'idea'
+    id "org.flywaydb.flyway" version "9.4.0"
+}
+
+group = 'com.adam.backend'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Dependência para o Spring Boot Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Dependência para Spring Boot Starter Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/dev'
+    user = 'postgres'
+    password = 'postgres'
+    driver = 'org.postgresql.Driver'
+    cleanDisabled = false
+}
+
+build.dependsOn(flywayMigrate)

@@ -1,0 +1,25 @@
+# Application port
+server:
+  port: 8082
+
+# Default connection pool
+spring:
+  datasource:
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+    # PostgreSQL
+    url: jdbc:postgresql://localhost:5432/dev
+    username: postgres
+    password: postgres
+
+  # Default Schema
+  flyway:
+    schemas: shopping
+    baseline-on-migrate: true
+    clean-disabled: false
+  jpa:
+    properties:
+      hibernate:
+        default_schema: shopping
+
