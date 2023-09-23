@@ -5,11 +5,15 @@ import com.adam.backend.shoppingapi.models.Shop;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Primary
+@Repository
 public class ReportRepositoryImpl implements ReportRepository {
     @PersistenceContext
     private EntityManager entityManager;

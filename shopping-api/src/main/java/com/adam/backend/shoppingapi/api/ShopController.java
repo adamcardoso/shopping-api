@@ -2,6 +2,7 @@ package com.adam.backend.shoppingapi.api;
 
 import com.adam.backend.shoppingapi.dtos.ShopDTO;
 import com.adam.backend.shoppingapi.dtos.ShopReportDTO;
+import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 import com.adam.backend.shoppingapi.services.ShopService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,7 +37,7 @@ public class ShopController {
         return shopService.findById(id);
     }
     @PostMapping("/shopping")
-    public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) {
+    public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) throws UserNotFoundException {
         return shopService.save(shopDTO);
     }
 

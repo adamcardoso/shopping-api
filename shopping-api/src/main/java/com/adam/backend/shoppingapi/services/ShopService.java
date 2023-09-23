@@ -1,7 +1,10 @@
 package com.adam.backend.shoppingapi.services;
 
 import com.adam.backend.shoppingapi.converter.DTOConverter;
-import com.adam.backend.shoppingapi.dtos.*;
+import com.adam.backend.shoppingapi.dtos.ItemDTO;
+import com.adam.backend.shoppingapi.dtos.ProductDTO;
+import com.adam.backend.shoppingapi.dtos.ShopDTO;
+import com.adam.backend.shoppingapi.dtos.ShopReportDTO;
 import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 import com.adam.backend.shoppingapi.models.Shop;
 import com.adam.backend.shoppingapi.repositories.ReportRepository;
@@ -14,7 +17,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ShopService {
@@ -35,15 +37,16 @@ public class ShopService {
         return shops
                 .stream()
                 .map(ShopDTO::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
+
     public List<ShopDTO> getByUser(String userIdentifier) {
         List<Shop> shops = shopRepository
                 .findAllByUserIdentifier(userIdentifier);
         return shops
                 .stream()
                 .map(ShopDTO::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<ShopDTO> getByDate(ShopDTO shopDTO) {
@@ -52,7 +55,7 @@ public class ShopService {
         return shops
                 .stream()
                 .map(ShopDTO::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
     public ShopDTO findById(long ProductId) {
         Optional<Shop> shop = shopRepository.findById(ProductId);
@@ -92,8 +95,9 @@ public class ShopService {
         return shops
                 .stream()
                 .map(DTOConverter::convert)
-                .collect(Collectors.toList());
+                .toList();
     }
+
     public ShopReportDTO getReportByDate(
             LocalDateTime dataInicio,
             LocalDateTime dataFim) {
