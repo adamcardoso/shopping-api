@@ -14,7 +14,7 @@ import lombok.Setter;
 @Embeddable
 public class Item {
     private String productIdentifier;
-    private Float price;
+    private Double price;
 
     public static Item convert(ItemDTO itemDTO) {
         Item item = new Item();

@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String userIdentifier;
-    private float total;
+    private Double total;
     private LocalDateTime date;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "item",
@@ -37,7 +37,7 @@ public class Shop {
                 .getItems()
                 .stream()
                 .map(Item::convert)
-                .collect(Collectors.toList()));
+                .toList());
         return shop;
     }
 }

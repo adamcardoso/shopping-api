@@ -17,10 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShopDTO {
+
+    private Long id;
+
     @NotBlank
     private String userIdentifier;
     @NotNull
-    private Float total;
+    private Double total;
     @NotNull
     private LocalDateTime date;
     @NotNull
