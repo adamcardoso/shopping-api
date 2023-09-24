@@ -31,6 +31,7 @@ public class ShopDTO {
 
     public static ShopDTO convert(Shop shop) {
         ShopDTO shopDTO = new ShopDTO();
+        shopDTO.setId(shop.getId());
         shopDTO.setUserIdentifier(shop.getUserIdentifier());
         shopDTO.setTotal(shop.getTotal());
         return shopDTO;

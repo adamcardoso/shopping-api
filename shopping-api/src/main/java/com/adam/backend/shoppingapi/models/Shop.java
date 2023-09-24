@@ -30,6 +30,7 @@ public class Shop {
     // gets e sets
     public static Shop convert(ShopDTO shopDTO) {
         Shop shop = new Shop();
+        shop.setId(shopDTO.getId());
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
         shop.setTotal(shopDTO.getTotal());
         shop.setDate(shopDTO.getDate());
