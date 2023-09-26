@@ -9,9 +9,9 @@ spring:
       connectionTimeout: 20000
       maximumPoolSize: 5
     # PostgreSQL
-    url: jdbc:postgresql://localhost:5432/dev
-    username: postgres
-    password: postgres
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/dev}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
 
   # Default Schema
   flyway:
