@@ -11,6 +11,6 @@ import java.util.List;
 public interface ShopRepository  extends JpaRepository<Shop, Long>, ReportRepository {
     List<Shop> findAllByUserIdentifier(
             String userIdentifier);
-    List<Shop> findAllByTotalGreaterThan(Float total);
+    List<Shop> findAllByTotalGreaterThan(Double total);
     List<Shop> findAllByDateGreaterThan(LocalDateTime date);
 }

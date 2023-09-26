@@ -2,12 +2,12 @@ package com.adam.backend.shoppingapi.api.interfaces;
 
 import com.adam.backend.shoppingapi.dtos.ShopDTO;
 import com.adam.backend.shoppingapi.dtos.ShopReportDTO;
-import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public interface ShopController {
 
     ResponseEntity<ShopDTO> findById(@PathVariable Long id);
 
-    ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) throws UserNotFoundException;
+    ShopDTO newShop(@RequestHeader(name = "key") String key, @Valid @RequestBody ShopDTO shopDTO);
 
     List<ShopDTO> getShopsByFilter(
             @RequestParam(name = "dataInicio")

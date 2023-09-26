@@ -2,7 +2,6 @@ package com.adam.backend.shoppingapi.services.interfaces;
 
 import com.adam.backend.shoppingapi.dtos.ShopDTO;
 import com.adam.backend.shoppingapi.dtos.ShopReportDTO;
-import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +12,7 @@ public interface ShopService {
 
     List<ShopDTO> getByUser(String userIdentifier);
 
-    ShopDTO save(ShopDTO shopDTO) throws UserNotFoundException;
+    ShopDTO save(ShopDTO shopDTO, String key);
 
     List<ShopDTO> getByDate(ShopDTO shopDTO);
 

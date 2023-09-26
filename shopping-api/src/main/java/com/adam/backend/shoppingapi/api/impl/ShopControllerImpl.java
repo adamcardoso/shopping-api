@@ -51,8 +51,8 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     @PostMapping("/shopping")
-    public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO) throws UserNotFoundException {
-        return shopService.save(shopDTO);
+    public ShopDTO newShop(@RequestHeader(name = "key") String key,@Valid @RequestBody ShopDTO shopDTO) {
+        return shopService.save(shopDTO, key);
     }
 
     @Override

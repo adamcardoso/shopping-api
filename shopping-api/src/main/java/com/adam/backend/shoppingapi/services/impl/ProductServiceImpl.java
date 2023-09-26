@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
                     restTemplate.getForEntity(url, ProductDTO.class);
             return response.getBody();
         } catch (HttpClientErrorException.NotFound e) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("Usuário não encontrado!", e);
         }
     }
 
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
                     restTemplate.getForEntity(url, UserDTO.class);
             return response.getBody();
         } catch (HttpClientErrorException.NotFound e) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("Usuário não encontrado!", e);
         }
     }
 }

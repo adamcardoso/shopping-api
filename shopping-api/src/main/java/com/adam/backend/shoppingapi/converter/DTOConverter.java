@@ -5,8 +5,6 @@ import com.adam.backend.shoppingapi.dtos.ShopDTO;
 import com.adam.backend.shoppingapi.models.Item;
 import com.adam.backend.shoppingapi.models.Shop;
 
-import java.util.stream.Collectors;
-
 public class DTOConverter {
 
     private DTOConverter() {
@@ -30,7 +28,7 @@ public class DTOConverter {
                 .getItems()
                 .stream()
                 .map(DTOConverter::convert)
-                .collect(Collectors.toList()));
+                .toList());
         return shopDTO;
     }
 }

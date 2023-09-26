@@ -1,10 +1,7 @@
 package com.adam.backend.shoppingapi.services.impl;
 
 import com.adam.backend.shoppingapi.converter.DTOConverter;
-import com.adam.backend.shoppingapi.dtos.ItemDTO;
-import com.adam.backend.shoppingapi.dtos.ProductDTO;
-import com.adam.backend.shoppingapi.dtos.ShopDTO;
-import com.adam.backend.shoppingapi.dtos.ShopReportDTO;
+import com.adam.backend.shoppingapi.dtos.*;
 import com.adam.backend.shoppingapi.exceptions.ProductNotFoundException;
 import com.adam.backend.shoppingapi.exceptions.UserNotFoundException;
 import com.adam.backend.shoppingapi.models.Shop;
@@ -16,10 +13,7 @@ import com.adam.backend.shoppingapi.services.interfaces.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,32 +73,23 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public ShopDTO save(ShopDTO shopDTO) throws UserNotFoundException {
+    public ShopDTO save(ShopDTO shopDTO, String key) {
         try{
-            if (userService.getUserByCpf(shopDTO.getUserIdentifier()) == null) {
-                return null;
-            }
-            if (!validateProducts(shopDTO.getItems())) {
-                return null;
-            }
+            UserDTO userDTO = userService.getUserByCpf(shopDTO.getUserIdentifier(), key);
+            validateProducts(shopDTO.getItems());
+
             shopDTO.setTotal(shopDTO.getItems()
                     .stream()
                     .map(ItemDTO::getPrice)
                     .reduce((double) 0, Double::sum));
+
             Shop shop = Shop.convert(shopDTO);
+            shop.setDate(LocalDateTime.now());
 
-            // Criando uma nova instância de java.util.Date
-            Date date = new Date();
-
-            // Convertendo java.util.Date para java.time.LocalDateTime
-            Instant instant = date.toInstant();
-            LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-            shop.setDate(localDateTime);
             shop = shopRepository.save(shop);
             return DTOConverter.convert(shop);
         }catch (Exception e){
-            throw new UserNotFoundException("Usuário não encontrado!");
+            throw new UserNotFoundException("Usuário não encontrado!", e);
         }
     }
 
